@@ -26,10 +26,8 @@ def take_top_10(dictionary: dict) -> dict:
 
 class InputConnect:
     def __init__(self):
-        # self.file_name = input("Введите название файла: ")
-        # self.job_name = input("Введите название профессии: ")
-        self.file_name = 'vacancies.csv'
-        self.job_name = 'Программист'
+        self.file_name = input("Введите название файла: ")
+        self.job_name = input("Введите название профессии: ")
         self.year_to_salary = {}
         self.year_to_vacancies_count = {}
         self.job_year_to_salary = {}

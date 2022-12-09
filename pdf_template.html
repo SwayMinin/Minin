@@ -1,0 +1,78 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Report</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+            text-align: center;
+        }
+        img {
+            width: 95%;
+        }
+        table, th, td {
+            border: 1px solid;
+            border-collapse: collapse;
+            padding: 5px;
+            text-align: center;
+        }
+        .column {
+            width: 49%;
+        }
+        .left {
+            float: left;
+        }
+        .right {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Аналитика по зарплатам и городам для профессии {{ job_name }}</h1>
+    <img src="file:///C:/Users/swaym/PycharmProjects/6.1/graph.png" alt="Графики со статистикой">
+    <h2>Статистика по годам</h2>
+    <table>
+        <tr>
+            {% for value in years_headers %}
+            <td><b>{{ value }}</b></td>
+            {% endfor %}
+        </tr>
+        {% for row in years_rows %}
+        <tr>
+            {% for value in row %}
+            <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>Статистика по городам</h2>
+    <table class="column left">
+        <tr>
+            {% for value in cities_salary_headers %}
+            <td><b>{{ value }}</b></td>
+            {% endfor %}
+        </tr>
+        {% for row in cities_salary_rows %}
+        <tr>
+            {% for value in row %}
+            <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <table class="column right">
+        <tr>
+            {% for value in cities_share_headers %}
+            <td><b>{{ value }}</b></td>
+            {% endfor %}
+        </tr>
+        {% for row in cities_share_rows %}
+        <tr>
+            {% for value in row %}
+            <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

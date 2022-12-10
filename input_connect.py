@@ -35,7 +35,14 @@ class InputConnect:
         self.city_to_salary = {}
         self.city_to_vacancies_share = {}
         self.__process_data(DataSet(self.file_name).vacancies)
-        self.__print_statistics()
+
+    def print_vacancies(self):
+        print(f'Динамика уровня зарплат по годам: {self.year_to_salary}')
+        print(f'Динамика количества вакансий по годам: {self.year_to_vacancies_count}')
+        print(f'Динамика уровня зарплат по годам для выбранной профессии: {self.job_year_to_salary}')
+        print(f'Динамика количества вакансий по годам для выбранной профессии: {self.job_year_to_vacancies_count}')
+        print(f'Уровень зарплат по городам (в порядке убывания): {self.city_to_salary}')
+        print(f'Доля вакансий по городам (в порядке убывания): {self.city_to_vacancies_share}')
 
     def __process_data(self, vacancies: list) -> None:
         if not vacancies:
@@ -58,14 +65,6 @@ class InputConnect:
         self.__change_years_stats(years_statistics)
         self.__change_job_stats(job_statistics)
         self.__change_cities_stats(cities_statistics)
-
-    def __print_statistics(self):
-        print(f'Динамика уровня зарплат по годам: {self.year_to_salary}')
-        print(f'Динамика количества вакансий по годам: {self.year_to_vacancies_count}')
-        print(f'Динамика уровня зарплат по годам для выбранной профессии: {self.job_year_to_salary}')
-        print(f'Динамика количества вакансий по годам для выбранной профессии: {self.job_year_to_vacancies_count}')
-        print(f'Уровень зарплат по городам (в порядке убывания): {self.city_to_salary}')
-        print(f'Доля вакансий по городам (в порядке убывания): {self.city_to_vacancies_share}')
 
     def __change_years_stats(self, years_statistics: dict) -> None:
         self.year_to_salary = sort_by_key(get_key_to_mean(years_statistics))

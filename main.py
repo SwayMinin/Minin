@@ -4,7 +4,7 @@ from report import Report
 
 if __name__ == "__main__":
     output_data = input('Введите данные для печати: ')
-    inp_connect = InputConnect()
+    inp_connect = InputConnect() # тест
     if output_data == 'Вакансии':
         inp_connect.print_vacancies()
     if output_data == 'Статистика':

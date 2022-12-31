@@ -3,7 +3,7 @@ from report import Report
 
 
 if __name__ == "__main__":
-    output_data = input('Введите данные для печати: ')
+    output_data = input('Конфликтная строка: ')
     inp_connect = InputConnect()
     if output_data == 'Вакансии':
         inp_connect.print_vacancies()

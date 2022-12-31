@@ -13,7 +13,20 @@ currency_to_rub = {
 
 
 class Vacancy:
-    def __init__(self, row: dict):
+    """Класс для представления вакансии
+
+    Attributes:
+        name (str): Название вакансии
+        salary (int): Средняя зарплата в рублях
+        city (str): Город вакансии
+        year (str): Год публикации вакансии
+    """
+    def __init__(self, row):
+        """Инициализирует класс Vacancy, задаёт атрибутам нужные значения
+
+        Args:
+            row (dict): Словарь с данными вакансии
+        """
         self.name = row['name']
         salary_from = int(float(row['salary_from']))
         salary_to = int(float(row['salary_to']))

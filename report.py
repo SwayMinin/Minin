@@ -9,12 +9,24 @@ from input_connect import InputConnect
 
 
 class Report:
+    """Класс для создания отчетов со статистикой
+
+    Attributes:
+        default_font_size (int): Размер шрифта по умолчанию
+        small_font_size (int): Размер маленького шрифта
+        default_column_width (int): Ширина колонок по умолчанию
+    """
     default_font_size = 8
     small_font_size = 6
     default_column_width = 2
 
     @staticmethod
-    def generate_pdf(inp_connect: InputConnect):
+    def generate_pdf(inp_connect):
+        """Создает pdf файл со статистикой
+
+        Args:
+            inp_connect (InputConnect): Класс со статистикой
+        """
         job_name = inp_connect.job_name
         Report.generate_image(inp_connect)
         Report.generate_excel(inp_connect)
@@ -40,6 +52,11 @@ class Report:
 
     @staticmethod
     def generate_image(inp_connect: InputConnect):
+        """Создает изображение с графиками статистики
+
+        Args:
+            inp_connect (InputConnect): Класс со статистикой
+        """
         year_to_salary = inp_connect.year_to_salary
         year_to_vacancies_count = inp_connect.year_to_vacancies_count
         job_name = inp_connect.job_name
@@ -62,6 +79,11 @@ class Report:
 
     @staticmethod
     def generate_excel(inp_connect: InputConnect):
+        """Создает Excel таблицу со статистикой
+
+        Args:
+            inp_connect (InputConnect): Класс со статистикой
+        """
         year_to_salary = inp_connect.year_to_salary
         year_to_vacancies_count = inp_connect.year_to_vacancies_count
         job_name = inp_connect.job_name
@@ -97,7 +119,13 @@ class Report:
         wb.save('report.xlsx')
 
     @staticmethod
-    def __make_headlines(worksheet, headlines: list):
+    def __make_headlines(worksheet, headlines):
+        """Создает заголовки в листе таблицы
+
+        Args:
+            worksheet: Лист таблицы
+            headlines (list): Список заголовков
+        """
         worksheet.append(headlines)
         for cell in worksheet['1:1']:
             cell.font = Font(bold=True)
@@ -106,6 +134,11 @@ class Report:
 
     @staticmethod
     def __auto_columns_width(worksheet):
+        """Задает ширину всем столбцам листа таблицы
+
+        Args:
+            worksheet: Лист таблицы
+        """
         regular = Side(border_style="thin", color="000000")
         box = Border(top=regular, bottom=regular, left=regular, right=regular)
         for col in worksheet.iter_cols():
@@ -117,11 +150,21 @@ class Report:
                 column.width = max(column.width, len(str(cell.value)) + Report.default_column_width)
 
     @staticmethod
-    def __plot_comparison(ax, title: str, label1: str, label2: str, data: dict, data_compare: dict):
+    def __plot_comparison(ax, title, label, label_compare, data, data_compare):
+        """Задает на графике сравнение данных
+
+        Args:
+            ax: График
+            title (str): Название графика
+            label (str): Название данных
+            label_compare (str): Название данных для сравнения
+            data (dict): Данные
+            data_compare (dict): Данные для сравнения
+        """
         ax.set_title(title)
         bar_width = 0.4
-        ax.bar([key - bar_width / 2 for key in data.keys()], data.values(), bar_width, label=label1)
-        ax.bar([key + bar_width / 2 for key in data_compare.keys()], data_compare.values(), bar_width, label=label2)
+        ax.bar([key - bar_width / 2 for key in data.keys()], data.values(), bar_width, label=label)
+        ax.bar([key + bar_width / 2 for key in data_compare.keys()], data_compare.values(), bar_width, label=label_compare)
         ax.set_xticks(range(2007, 2023))
         ax.grid(axis='y')
         ax.legend(fontsize=Report.default_font_size)
@@ -129,7 +172,14 @@ class Report:
         ax.tick_params('x', labelrotation=90)
 
     @staticmethod
-    def __plot_cities_salary(ax, title: str, city_salary_data: dict):
+    def __plot_cities_salary(ax, title, city_salary_data):
+        """Задает на графике статистику зарплат по городам
+
+        Args:
+            ax: График
+            title (str): Название графика
+            city_salary_data (dict): Данные с зарплатой городов
+        """
         ax.set_title(title)
         cities = [city.replace(' ', '\n').replace('-', '-\n') for city in city_salary_data.keys()]
         ax.barh(cities, city_salary_data.values())
@@ -139,7 +189,13 @@ class Report:
         ax.tick_params('y', labelsize=Report.small_font_size)
 
     @staticmethod
-    def __plot_pie(ax, title: str, city_share_data: dict):
+    def __plot_pie(ax, title, city_share_data):
+        """Задает круговую диаграмму со статистикой доли городов
+
+        Args:
+            title (str): Название графика
+            city_share_data (dict): Данные с долей городов
+        """
         ax.set_title(title)
         pie_dict = city_share_data.copy()
         pie_dict["Другие"] = 1 - sum(city_share_data.values())
